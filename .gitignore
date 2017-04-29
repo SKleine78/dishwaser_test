@@ -1,0 +1,9 @@
+*.odt
+*.pdf
+class-diagram.png
+info.txt
+instructions.txt
+*.odp
+*.pptx
+/vendor/*
+/logs/app.log

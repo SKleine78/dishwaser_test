@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<devices>
+    <dishwasher active="1">
+        <description>A dishwaser. Only one program at the moment. Cannot open door while program is running.</description>
+        <!-- data is optional, will be made available as array in php -->
+        <!-- do not use attributes, they will be ignored -->
+        <data>
+            <programs>
+                <Standard>
+                    <id>1</id>
+                    <default>1</default>
+                    <active>1</active>
+                    <name>Standard</name>
+                    <!-- Duration in seconds -->
+                    <duration>10</duration>
+                </Standard>
+                <Short>
+                    <id>2</id>
+                    <active>0</active>
+                    <name>Short</name>
+                    <duration>20</duration>
+                </Short>
+            </programs>
+        </data>
+    </dishwasher>
+    <oven active="0">
+        <description>Not yet known</description>
+    </oven>
+</devices>
