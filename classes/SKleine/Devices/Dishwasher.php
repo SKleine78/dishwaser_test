@@ -64,9 +64,7 @@ class Dishwasher extends \SKleine\Devices\AbstractDevice implements \SKleine\Dev
 
         $this->_typeInfo = $typeInfo;
 
-        if (!$this->_checkArrayForDevice($data)) {
-            throw new \Exception('Error with device');
-        }
+        $this->_checkArrayForDevice($data);
 
         $this->_hash = $data['hash'];
         $this->_description = $data['description'];
@@ -191,34 +189,37 @@ class Dishwasher extends \SKleine\Devices\AbstractDevice implements \SKleine\Dev
         // TODO: change this to return Exceptions with valid error messages
 
         // check that values exist and are valid
-        if (empty($array[self::ATTR_DOOR]) || empty($array[self::ATTR_STATUS])
-            || empty($array[self::ATTR_CURRENT_PROGRAM])) {
-
-            // data is missing
-            return false;
+        if (empty($array[self::ATTR_DOOR])) {
+            throw new \Exception('Missing value for '.self::ATTR_DOOR);
+        }
+        if (empty($array[self::ATTR_STATUS])) {
+            throw new \Exception('Missing value for '.self::ATTR_STATUS);
+        }
+        if (empty($array[self::ATTR_CURRENT_PROGRAM])) {
+            throw new \Exception('Missing value for '.self::ATTR_CURRENT_PROGRAM);
         }
 
         if (!in_array($array[self::ATTR_DOOR], $this->_availableStates[self::ATTR_DOOR])) {
-            return false;
+            throw new \Exception('Wrong value for '.self::ATTR_DOOR);
         }
         if (!in_array($array[self::ATTR_STATUS], $this->_availableStates[self::ATTR_STATUS])) {
-            return false;
+            throw new \Exception('Wrong value for '.self::ATTR_STATUS);
         }
 
         $usablePrograms = array_keys($this->_typeInfo['data']['programs']);
         if (!in_array($array[self::ATTR_CURRENT_PROGRAM], $usablePrograms)) {
-            return false;
+            throw new \Exception('Wrong value for '.self::ATTR_CURRENT_PROGRAM);
         }
 
         // check that logic is kept
         if ($array[self::ATTR_STATUS] == self::STATUS_ON) {
             // door must be close
             if ($array[self::ATTR_DOOR] == self::DOOR_OPEN) {
-                return false;
+                throw new \Exception('Program is running, door can not be open');
             }
             // program start time must be set and in the past
             if (empty($array[self::ATTR_PROGRAM_STARTED]) || $array[self::ATTR_PROGRAM_STARTED] > time()) {
-                return false;
+                throw new \Exception('Program start time is in future');
             }
         } else if ($array[self::ATTR_STATUS] == self::STATUS_OFF) {
             // we could check for start time, but that should not be a problem
