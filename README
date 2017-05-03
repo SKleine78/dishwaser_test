@@ -1,1 +1,9 @@
-Dishwaser API Test, additional infos will follow
+Dishwaser API Test
+
+This was a coding challenge for a job interview. I was told to spend about 8 hours on this project. But I did spend a lot more, maybe even double the time. That's why some parts or note completely done (i.e. the unit tests are not complete).
+
+You need to set up a vhost in apache (or in nginx) with php available. You also need redis to run it. Redis should be available on 127.0.0.1:6379. If you have redis running on another port or another server you can change access details in config/config.php.
+
+The frontend is availble on /frontend/ and should be run on the same host. If you want to run it on a different host, you need to add access control headers and change the javascript api url in /frontend/script.js (line 3).
+
+I'm planning on creating a react frontend version and maybe add a node.js backend version.
