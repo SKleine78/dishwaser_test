@@ -186,8 +186,6 @@ class Dishwasher extends \SKleine\Devices\AbstractDevice implements \SKleine\Dev
      * @return bool
      */
     protected function _checkArrayForDevice($array) {
-        // TODO: change this to return Exceptions with valid error messages
-
         // check that values exist and are valid
         if (empty($array[self::ATTR_DOOR])) {
             throw new \Exception('Missing value for '.self::ATTR_DOOR);
